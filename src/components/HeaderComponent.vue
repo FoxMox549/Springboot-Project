@@ -1,7 +1,7 @@
 <template>
   <div style="display: flex;line-height: 60px;">
-    <div style="margin-top: 5px;">
-        <i class="el-icon-s-fold" style="font-size: 20px;"></i>
+    <div style="margin-top: 8px;">
+        <i :class="icon" style="font-size: 20px; cursor: pointer;" @click="collapse"></i>
     </div>
     <div style="flex: 1;text-align: center;font-size: 25px;">
         <span>Welcome to Warehouse Manager System</span>
@@ -18,15 +18,22 @@
 
 <script>
 export default {
-  name: "HeaderComponent",
-  methods:{
-    toUser(){
-      console.log('to_user')
+    name: "HeaderComponent",
+    props:{
+        icon:String
     },
-    logout(){
-      console.log('logout')
+    methods:{
+        toUser(){
+            console.log('to_user')
+        },
+        logout(){
+            console.log('logout')
+        },
+        collapse(){
+            this.$emit('doCollapse')
+        }
+
     }
-  }
 }
 </script>
 
