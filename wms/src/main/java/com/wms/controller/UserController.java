@@ -2,6 +2,7 @@ package com.wms.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wms.common.QueryPageParam;
 import com.wms.common.Result;
@@ -58,10 +59,12 @@ public class UserController {
 
     // search(ambiguous query or match query)
     @PostMapping("/listP")
-    public List<User> listP(@RequestBody User user){
+    public Result listP(@RequestBody User user){
         LambdaQueryWrapper<User> lambdaQueryWrapper = new LambdaQueryWrapper();
-        lambdaQueryWrapper.like(User::getName, user.getName());
-        return userService.list(lambdaQueryWrapper);
+        if(StringUtils.isNotBlank(user.getName())){
+            lambdaQueryWrapper.like(User::getName, user.getName());
+        }
+        return Result.suc(userService.list(lambdaQueryWrapper));
     }
 
     @PostMapping("/listPage")
