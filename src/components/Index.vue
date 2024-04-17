@@ -9,7 +9,7 @@
           <HeaderComponent @doCollapse="doCollapse" :icon="icon"></HeaderComponent>
       </el-header>
 
-      <el-main style="height: 100%;">
+      <el-main style="height: 100%; margin: -15px -15px -15px -15px;">
           <MainComponent></MainComponent>
       </el-main>
     </el-container>
