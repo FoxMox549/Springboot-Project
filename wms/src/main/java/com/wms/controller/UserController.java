@@ -33,10 +33,39 @@ public class UserController {
         return userService.list();
     }
 
+    @GetMapping("findByNo")
+    public Result findByNo(@RequestParam String no){
+        List list = userService.lambdaQuery().eq(User::getNo, no).list();
+        return list.size()>0?Result.suc(list):Result.fail();
+    }
+
     // add
     @PostMapping("/save")
-    public boolean save(@RequestBody User user){
-        return userService.save(user);
+    public Result save(@RequestBody User user){
+        return userService.save(user)?Result.suc():Result.fail();
+    }
+
+    // update
+    @PostMapping("/update")
+    public Result update(@RequestBody User user){
+        return userService.updateById(user)?Result.suc():Result.fail();
+    }
+
+    // del
+    @GetMapping("/del")
+    public Result del(@RequestParam String id){
+        return userService.removeById(id)?Result.suc():Result.fail();
+    }
+
+    // login
+    @PostMapping("/login")
+    public Result login(@RequestBody User user){
+        // retrieve data from backend
+        List list = userService.lambdaQuery()
+                .eq(User::getNo, user.getNo())
+                .eq(User::getPassword, user.getPassword()).list();
+        // return the data to the frontend
+        return list.size()>0?Result.suc(list.get(0)):Result.fail();
     }
 
     // modify
