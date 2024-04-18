@@ -1,6 +1,6 @@
 <template>
   <el-container style="height: 100%; border: 1px solid #eee">
-    <el-aside :width="aside_width" style="background-color: rgb(238, 241, 246);height: 100%;margin-left: -1px;">
+    <el-aside :width="aside_width" style="background-color: rgb(238, 241, 246);margin-left: -1px;">
         <Asidecomponent :isCollapse="isCollapse"></Asidecomponent>
     </el-aside>
 
