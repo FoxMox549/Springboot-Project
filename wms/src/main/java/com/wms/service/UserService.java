@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * <p>
- *  Service class
+ * Service class
  * </p>
  *
  * @author wms

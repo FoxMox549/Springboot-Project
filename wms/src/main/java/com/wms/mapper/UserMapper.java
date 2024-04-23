@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
- *  Mapper interface
+ * Mapper interface
  * </p>
  *
  * @author wms

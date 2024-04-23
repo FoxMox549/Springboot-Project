@@ -11,20 +11,20 @@ public class Result {
     private Long total; // total records
     private Object data; // data
 
-    public static Result fail(){
-        return result(200,"fail",0L,null);
+    public static Result fail() {
+        return result(200, "fail", 0L, null);
     }
 
-    public static Result suc(){
-        return result(100,"success",0L,null);
+    public static Result suc() {
+        return result(100, "success", 0L, null);
     }
 
-    public static Result suc(Object data){
-        return result(100,"success",0L,data);
+    public static Result suc(Object data) {
+        return result(100, "success", 0L, data);
     }
 
-    public static Result suc(Object data, Long total){
-        return result(100,"success",total,data);
+    public static Result suc(Object data, Long total) {
+        return result(100, "success", total, data);
     }
 
     private static Result result(int code, String msg, Long total, Object data) {

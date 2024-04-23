@@ -1,0 +1,41 @@
+create table user
+(
+		id 				int auto_increment comment 'primary key'
+				primary key,
+		no 				varchar(20)							null comment 'account',
+		name			varchar(100)						not null comment 'name',
+		password  varchar(20)							not null comment 'password',
+		age 			int 										null,
+		sex       int 										null comment 'sex',
+		phone			varchar(20)  						null comment 'phone',
+		role_id		int 										null comment 'role 0 - super admin, 1 - admin, 2 - normal user',
+		isValid		varchar(4) default 'Y' 	null comment 'is valid, Y yes, other invalid'
+
+)
+		charset = utf8;
+
+---
+
+
+CREATE TABLE `menu` (
+  `id` int(11) NOT NULL,
+  `menuCode` varchar(8) DEFAULT NULL COMMENT 'MenuCode',
+  `menuName` varchar(16) DEFAULT NULL COMMENT 'MenuName',
+  `menuLevel` varchar(2) DEFAULT NULL COMMENT 'MenuLevel',
+  `menuParentCode` varchar(8) DEFAULT NULL COMMENT 'MenuParentCode',
+  `menuClick` varchar(16) DEFAULT NULL COMMENT 'MenuClickFunction',
+  `menuRight` varchar(8) DEFAULT NULL COMMENT 'Right 0IsSuperAdmin，1IsAdmin，2IsUser，Can be used in combination with commas',
+  `menuComponent` varchar(200) DEFAULT NULL,
+  `menuIcon` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+BEGIN;
+INSERT INTO `menu` VALUES (1, '001', 'AdminManage', '1', NULL, 'Admin', '0', 'admin/AdminManage.vue', 'el-icon-s-custom');
+INSERT INTO `menu` VALUES (2, '002', 'UserManage', '1', NULL, 'User', '0,1', 'user/UserManage.vue', 'el-icon-user-solid');
+INSERT INTO `menu` VALUES (3, '003', 'StorageManage', '1', NULL, 'Storage', '0,1', 'storage/StorageManage', 'el-icon-office-building');
+INSERT INTO `menu` VALUES (4, '004', 'GoodsTypeManage', '1', NULL, 'Goodstype', '0,1', 'goodstype/GoodstypeManage', 'el-icon-menu');
+INSERT INTO `menu` VALUES (5, '005', 'GoodsManage ', '1', NULL, 'Goods', '0,1,2', 'goods/GoodsManage', 'el-icon-s-management');
+INSERT INTO `menu` VALUES (6, '006', 'RecordManage', '1', NULL, 'Record', '0,1,2', 'record/RecordManage', 'el-icon-s-order');
+COMMIT;
