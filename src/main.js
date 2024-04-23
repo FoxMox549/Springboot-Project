@@ -7,15 +7,16 @@ import './assets/global.css';
 import axios from 'axios';
 import VueRouter from 'vue-router';
 import router from './router';
-
+import store from './store';
 Vue.prototype.$axios = axios;
 Vue.prototype.$httpUrl = 'http://localhost:8090'
 Vue.config.productionTip = false
 //Vue.use(ElementUI);
-Vue.use(ElementUI, {locale, size:'medium'});
+Vue.use(ElementUI, {locale, size: 'medium'});
 Vue.use(VueRouter);
 
 new Vue({
-  router,
-  render: h => h(App),
+    router,
+    store,
+    render: h => h(App),
 }).$mount('#app')

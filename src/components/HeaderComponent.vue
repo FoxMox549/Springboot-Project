@@ -1,37 +1,40 @@
 <template>
-  <div style="display: flex;line-height: 60px;">
-    <div style="margin-top: 8px;">
-        <i :class="icon" style="font-size: 20px; cursor: pointer;" @click="collapse"></i>
+    <div style="display: flex;line-height: 60px;">
+        <div style="margin-top: 8px;">
+            <i :class="icon" style="font-size: 20px; cursor: pointer;" @click="collapse"></i>
+        </div>
+        <div style="flex: 1;text-align: center;font-size: 25px;">
+            <span>Welcome to Warehouse Manager System</span>
+        </div>
+        <el-dropdown>
+            <i class="el-icon-setting" style="margin-left: 1px;"></i>
+            <span>{{ user.name }}</span>
+            <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item @click.native="toUser">Personal center</el-dropdown-item>
+                <el-dropdown-item @click.native="logout">Log out</el-dropdown-item>
+            </el-dropdown-menu>
+        </el-dropdown>
     </div>
-    <div style="flex: 1;text-align: center;font-size: 25px;">
-        <span>Welcome to Warehouse Manager System</span>
-    </div>
-    <el-dropdown>
-      <i class="el-icon-setting" style="margin-left: 1px;"></i>
-      <span>{{ user.name }}</span><el-dropdown-menu slot="dropdown">
-          <el-dropdown-item @click.native="toUser">Personal center</el-dropdown-item>
-          <el-dropdown-item @click.native="logout">Log out</el-dropdown-item>
-      </el-dropdown-menu>
-    </el-dropdown>
-  </div>
 </template>
 
 <script>
 export default {
     name: "HeaderComponent",
-    data(){
+    data() {
         return {
-            user : JSON.parse(sessionStorage.getItem("CurUser")),
+            user: JSON.parse(sessionStorage.getItem("CurUser")),
         }
     },
-    props:{
-        icon:String
+    props: {
+        icon: String
     },
-    methods:{
-        toUser(){
+    methods: {
+        toUser() {
             console.log('to_user')
+
+            this.$router.push('/Home')
         },
-        logout(){
+        logout() {
             console.log('logout')
 
             this.$confirm('Are you sure you want to logout?', 'Hint', {
@@ -42,25 +45,28 @@ export default {
             })
                     .then(() => {
                         this.$message({
-                            type:'success',
-                            message:'Logout successfully'
+                            type: 'success',
+                            message: 'Logout successfully'
                         })
 
-                        this.$router.push('/') // return to login page with path '/', for details see Index.js
+                        this.$router.push('/') // return to login page with path '/', for details see index.js
                         sessionStorage.clear() // clear related data after log out
                     })
                     .catch(() => {
                         this.$message({
-                            type:'info',
-                            message:'Logout Canceled'
+                            type: 'info',
+                            message: 'Logout Canceled'
                         })
                     })
 
         },
-        collapse(){
+        collapse() {
             this.$emit('doCollapse')
         }
 
+    },
+    created(){
+        this.$router.push('/Home')
     }
 }
 </script>

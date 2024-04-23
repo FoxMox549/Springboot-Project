@@ -75,33 +75,33 @@
                 center>
 
             <el-form ref="form" :rules="rules" :model="form" label-width="100px">
-                <el-form-item label="Account" prop = "no">
+                <el-form-item label="Account" prop="no">
                     <el-col :span="20">
                         <el-input v-model="form.no"></el-input>
                     </el-col>
                 </el-form-item>
-                <el-form-item label="Password" prop = "password">
+                <el-form-item label="Password" prop="password">
                     <el-col :span="20">
                         <el-input v-model="form.password"></el-input>
                     </el-col>
                 </el-form-item>
-                <el-form-item label="Name" prop = "name">
+                <el-form-item label="Name" prop="name">
                     <el-col :span="20">
                         <el-input v-model="form.name"></el-input>
                     </el-col>
                 </el-form-item>
-                <el-form-item label="Age" prop = "age">
+                <el-form-item label="Age" prop="age">
                     <el-col :span="20">
                         <el-input v-model="form.age"></el-input>
                     </el-col>
                 </el-form-item>
-                <el-form-item label="Gender" >
+                <el-form-item label="Gender">
                     <el-radio-group v-model="form.sex">
                         <el-radio label="1">Male</el-radio>
                         <el-radio label="0">Female</el-radio>
                     </el-radio-group>
                 </el-form-item>
-                <el-form-item label="Phone" prop = "phone">
+                <el-form-item label="Phone" prop="phone">
                     <el-col :span="20">
                         <el-input v-model="form.phone"></el-input>
                     </el-col>
@@ -120,20 +120,20 @@ export default {
     name: "MainComponent",
     data() {
         let checkAge = (rule, value, callback) => {
-            if(value>150){
+            if (value > 150) {
                 callback(new Error('Age input is too large'));
-            }else{
+            } else {
                 callback();
             }
         };
         let checkDuplicate = (rule, value, callback) => {
-            if(this.form.id){
+            if (this.form.id) {
                 return callback();
             }
-            this.$axios.get(this.$httpUrl + '/user/findByNo?no=' + this.form.no).then(res=>res.data).then(res=>{
-                if(res.code!==100){
+            this.$axios.get(this.$httpUrl + '/user/findByNo?no=' + this.form.no).then(res => res.data).then(res => {
+                if (res.code !== 100) {
                     callback()
-                } else{
+                } else {
                     callback(new Error('Account already exists'));
                 }
             })
@@ -154,43 +154,44 @@ export default {
                     label: 'Female'
                 },
             ],
-            centerDialogVisible:false,
-            form:{
-                id:'',
-                no:'',
-                name:'',
-                password:'',
-                age:'',
-                phone:'',
-                sex:'0',
-                roleId:'1',
+            centerDialogVisible: false,
+            form: {
+                id: '',
+                no: '',
+                name: '',
+                password: '',
+                age: '',
+                phone: '',
+                sex: '0',
+                roleId: '1',
             },
             rules: {
                 no: [
-                    { required: true, message: 'Please enter account', trigger: 'blur' },
-                    { min: 3, max: 8, message: '3 - 8 letters', trigger: 'blur' },
-                    {validator:checkDuplicate, trigger:'blur'}
+                    {required: true, message: 'Please enter account', trigger: 'blur'},
+                    {min: 3, max: 8, message: '3 - 8 letters', trigger: 'blur'},
+                    {validator: checkDuplicate, trigger: 'blur'}
                 ],
                 name: [
-                    { required: true, message: 'Please enter name', trigger: 'blur' },
+                    {required: true, message: 'Please enter name', trigger: 'blur'},
                 ],
                 password: [
-                    { required: true, message: 'Please enter name', trigger: 'blur' },
-                    { min: 3, max: 8, message: '3 - 8 letters', trigger: 'blur' }
+                    {required: true, message: 'Please enter name', trigger: 'blur'},
+                    {min: 3, max: 8, message: '3 - 8 letters', trigger: 'blur'}
                 ],
                 age: [
-                    { required: true, message: 'Please enter age', trigger: 'blur' },
-                    { min: 1, max: 3, message: '3 - 8 letters', trigger: 'blur' },
-                    { pattern: /^([1-9][0-9]*){1,3}$/, message: 'age must be integer number', trigger: 'blur' },
-                    { validator:checkAge, trigger: 'blur' }
+                    {required: true, message: 'Please enter age', trigger: 'blur'},
+                    {min: 1, max: 3, message: '3 - 8 letters', trigger: 'blur'},
+                    {pattern: /^([1-9][0-9]*){1,3}$/, message: 'age must be integer number', trigger: 'blur'},
+                    {validator: checkAge, trigger: 'blur'}
                 ],
                 phone: [
-                    { required: true, message: 'Phone number cannot be empty', trigger: 'blur' },
+                    {required: true, message: 'Phone number cannot be empty', trigger: 'blur'},
                     {
                         // American format: (XXX) XXX-XXXX or XXX-XXX-XXXX
                         // China format: 1 followed by a number of 3-9, followed by 9 numbers
                         pattern: /^\(?([0-9]{3})\)?[- ]?([0-9]{3})[- ]?([0-9]{4})$| ^1[3-9][0-9]{9}$/,
-                        message: 'Please input a correct phone number', trigger: 'blur' },
+                        message: 'Please input a correct phone number', trigger: 'blur'
+                    },
                 ]
             }
         }
@@ -201,7 +202,7 @@ export default {
             this.$refs.form.resetFields();
         },
         // to delete data when press Delete button
-        del(id){
+        del(id) {
             console.log(id)
             this.$axios.get(this.$httpUrl + '/user/del?id=' + id).then(res => res.data).then(res => {
                 console.log(res)
@@ -222,12 +223,12 @@ export default {
             })
         },
         // to modify data when press Edit button
-        mod(row){
+        mod(row) {
             console.log(row);
 
             // to display data in form
             this.centerDialogVisible = true
-            this.$nextTick(()=>{
+            this.$nextTick(() => {
                 // assign values to form
                 //this.form = row
                 this.form.id = row.id
@@ -243,16 +244,16 @@ export default {
         // for Add New button
         add() {
             this.centerDialogVisible = true
-            this.$nextTick(()=>{
+            this.$nextTick(() => {
                 this.resetForm()
             })
         },
         // after clicked Add New button, press Yes will do save
-        save(){
+        save() {
             this.$refs.form.validate(valid => {
                 // check the condition if this form exist then do backend modify
                 if (valid) {
-                    if(this.form.id){
+                    if (this.form.id) {
                         this.doMod();
                     } else { // check the condition if this form does not exist then do backend save
                         this.doSave();
@@ -263,7 +264,7 @@ export default {
                 }
             });
         },
-        doSave(){
+        doSave() {
             this.$axios.post(this.$httpUrl + '/user/save', this.form).then(res => res.data).then(res => {
                 console.log(res)
                 if (res.code == 100) {
@@ -284,7 +285,7 @@ export default {
 
             })
         },
-        doMod(){
+        doMod() {
             this.$axios.post(this.$httpUrl + '/user/update', this.form).then(res => res.data).then(res => {
                 console.log(res)
                 if (res.code == 100) {

@@ -15,7 +15,9 @@
                                   @keyup.enter.native="confirm"></el-input>
                     </el-form-item>
                     <el-form-item>
-                        <el-button type="primary" @click="confirm" :disabled="confirm_disabled" style="margin-left: 60px">Login</el-button>
+                        <el-button type="primary" @click="confirm" :disabled="confirm_disabled"
+                                   style="margin-left: 60px">Login
+                        </el-button>
                     </el-form-item>
                 </el-form>
             </div>
@@ -55,12 +57,10 @@ export default {
                         console.log(res)
                         if (res.code == 100) {
                             // store
-                            sessionStorage.setItem("CurUser", JSON.stringify(res.data))
+                            sessionStorage.setItem("CurUser", JSON.stringify(res.data.user))
 
-                            // encountered errors that need fix
-                            /*sessionStorage.setItem("CurUser", JSON.stringify(res.data.user))
                             console.log(res.data.menu)
-                            this.$store.commit("setMenu",res.data.menu)*/
+                            this.$store.commit("setMenu",res.data.menu)
 
                             // jump to main page
                             this.$router.replace('/Index');
